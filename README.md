@@ -1,5 +1,5 @@
 # tutory
-Final Project 
+Final Project Z
 
 1. Log in page ( A form directly at the middle and maybe LOGO at the top, with some nice cool background.)
 2. Dashboard page - two, one for students/one for teachers
