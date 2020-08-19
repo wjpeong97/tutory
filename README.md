@@ -25,34 +25,32 @@ Streaming
 - Whiteboard (drawing tablet's screen)
 - Pop up quizzes:
     *Students: modal pop up
-    *Staffs: form for questionnaire & answer 
+    *Staffs: form for questionnaire & answer / can see students' answers
 - Chatbox
 - (optional) notes / announcements
 
 Materials 
 - List of classes
-    *Downloadeable contents such as lecture notes and tutorial
+    *Downloadeable contents such as lecture notes and tutorial (google docs)
 - Online Exam
 
 Assignment
-***TBD 
-- Students: submission page with upload button (based on chapters)
-- Staffs: list of students files, reviews 
+- Students: submit answers with google doc link  
+- Staffs: list of each classes > students' links 
 
 Report Card
 - Graph based on specific subject
 - Table with subjects and grades
 - Attendance record
 - Teacher's remarks
-- (Teacher) Automated email push to parents
+- (Once teacher gave remark + all subjects are finalized) Automated email push to parents - a link of graph + tables + remarks
 
-__________________________________________________________________________________________________________________________________________
+________________________________________________________________________________________________________________________________________
 Database:
 - Student / Staff (Login / Sign up / Personal Info)
 - Course Material
 - Announcement
-- Subject
-- Result
+- Report card (Subject,Result)
 - Exam
 - Assignments (review - needs to be research on *API)
 - Attendance
