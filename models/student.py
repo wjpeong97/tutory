@@ -1,16 +1,18 @@
-from models.base_model import BaseModel
 import peewee as pw
-from werkzeug.security import generate_password_hash
 import re
+from flask_login import UserMixin
+from werkzeug.security import generate_password_hash
+from models.base_model import BaseModel
+# from models.staff import Staff
 
-class Student(BaseModel):
+class Student(UserMixin,BaseModel):
     full_name = pw.CharField(unique=True, null=False)
     identity_card = pw.IntegerField(unique=True, null=False)
     password_hash = pw.TextField(null=False)
     email = pw.CharField(unique=True, null=False)
     password = None
     image_url = pw.TextField(null=True) 
-    attendance = pw.IntegerField(null=False, default=0)
+    attendance = pw.IntegerField(null=True, default=0)
     
     # @hybrid_property
     # def full_image_path(self):
@@ -22,13 +24,22 @@ class Student(BaseModel):
 
     def validate(self):
         # Email should be unique
-        existing_user_email = User.get_or_none(User.email==self.email)
-        if existing_user_email and existing_user_email.id != self.id:
-            self.errors.append(f"User with email {self.email} already exists!")
-        # Username should be unique
-        existing_user_username = User.get_or_none(User.username==self.username)
-        if existing_user_username and existing_user_username.id != self.id:
-            self.errors.append(f"User with username {self.username} already exists!")
+        existing_student_email = Student.get_or_none(Student.email==self.email)
+        # existing_staff_email = Staff.get_or_none(Staff.email==self.email)
+        if existing_student_email and existing_staff_email:
+            self.errors.append(f"This email {self.email} has already existed!")
+        
+        # Name should be unique
+        existing_student_full_name = Student.get_or_none(Student.full_name==self.full_name)
+        # existing_staff_full_name = Staff.get_or_none(Staff.full_name==self.full_name)
+        if existing_student_full_name and existing_staff_full_name:
+            self.errors.append(f"This name {self.full_name} has already existed!")
+        
+        # identity card should be unique
+        existing_student_identity_card = Student.get_or_none(Student.identity_card==self.identity_card)
+        # existing_staff_identity_card = Staff.get_or_none(Staff.identity_card==self.identity_card)
+        if existing_student_identity_card and existing_staff_identity_card:
+            self.errors.append(f"The IC number {self.identity_card} has already existed!")
 
         # Password should be longer than 6 characters
         if self.password:

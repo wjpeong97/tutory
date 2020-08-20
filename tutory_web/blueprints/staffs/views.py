@@ -1,22 +1,22 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash, session
 from flask_login import login_required, login_user, current_user, logout_user
 from werkzeug.security import check_password_hash
-from models.student import Student
+from models.staff import Staff
 # from tutory_web.util.helpers import upload_file_to_s3
 # from werkzeug import secure_filename
 
-students_blueprint = Blueprint('students',
+staffs_blueprint = Blueprint('staffs',
                             __name__,
                             template_folder='templates')
 
-@students_blueprint.route('/new', methods=['GET'])
+@staffs_blueprint.route('/new', methods=['GET'])
 def new():
-    return render_template('students/new.html')
+    return render_template('staffs/new.html')
 
-@students_blueprint.route('/signup', methods=['POST'])
+@staffs_blueprint.route('/signup', methods=['POST'])
 def create():
     params = request.form
-    new_user = Student(full_name=params.get("full_name"), identity_card=params.get("identity_card"), email=params.get("email"), password=params.get("password"))
+    new_user = Staff(full_name=params.get("full_name"), identity_card=params.get("identity_card"), email=params.get("email"), password=params.get("password"))
     if new_user.save():
         flash("Successfuly Sign Up!", "success")
         login_user(new_user)
@@ -24,15 +24,15 @@ def create():
     else:
         for err in new_user.errors:
             flash(err, "danger")
-        return redirect(url_for("students.new"))
+        return redirect(url_for("staffs.new"))
 
-@students_blueprint.route('/login', methods=['POST'])
+@staffs_blueprint.route('/login', methods=['POST'])
 def login():
     # get identity_card and password from form
     identity_card = request.form.get("identity_card")
     password = request.form.get("password")
     # check whether have this user in database
-    user = Student.get_or_none(Student.identity_card == identity_card)
+    user = Staff.get_or_none(Staff.identity_card == identity_card)
     # if got user then check password
     if user:
         result = check_password_hash(user.password_hash,password)
@@ -42,17 +42,17 @@ def login():
             # save user id in browser session
             # session['user_id'] = user.id 
             login_user(user)
-            return redirect(url_for('home', full_name=user.full_name))
+            return redirect(url_for('home',full_name=user.full_name))
         # else error message
         else:
             flash("Password Not matched","danger")
-            return  render_template("students/new.html")
+            return  render_template("staffs/new.html")
     # else error message
     else:
-        flash("Student not found.", "danger")
-        return  render_template("students/new.html")
+        flash("Staff not found.", "danger")
+        return  render_template("staffs/new.html")
 
-@students_blueprint.route('/delete', methods=['POST'])
+@staffs_blueprint.route('/delete', methods=['POST'])
 @login_required
 def destroy():
     # remove user info from browser session

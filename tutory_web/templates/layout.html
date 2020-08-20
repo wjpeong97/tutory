@@ -17,13 +17,52 @@
 
     <title>
       {% block title %}
-      {% endblock %}
+      {% endblock %}TUTORY
     </title>
 
   </head>
+    <body>
 
+      {# navbar start #}
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="{{url_for('home')}}">Navbar</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto">
+            {%  if current_user.is_authenticated %}
+              <li class="nav-item">
+                <form action="{{url_for('students.destroy')}}" method="POST">
+                  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                  <input type="submit" id="logout-btn" class="nav-link" value="Logout">
+                </form>
+              </li>
+            {% else %}
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('students.new')}}">Student Access</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('staffs.new')}}">Staff Access</a>
+            </li>
+            {% endif %}
+          </ul>
+        </div>
+      </nav>
+      {# navbar end #}
+
+      {# flash message #}
+      {# https://flask.palletsprojects.com/en/1.1.x/patterns/flashing/#flashing-with-categories #}
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            <div class="alert alert-{{category}}" role="alert">{{ message }}</div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+  
     {% block content %}
     {% endblock %}
-
   </body>
 </html>

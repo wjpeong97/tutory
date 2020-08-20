@@ -10,5 +10,8 @@
 {% block content %}
   <div class="container">
     <h1>Homepage</h1>
+    {% if current_user.is_authenticated %}
+      <h6>You now login as {{current_user.full_name}}</h6>
+    {% endif %}
   </div>
 {% endblock %}

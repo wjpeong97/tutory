@@ -1,25 +1,14 @@
-{% extends "_layout.html" %}
-
-{% block title %}
-  Homepage
-{% endblock %}
-
-{% block header %}
-{% endblock %}
-
-{% block content %}
-  <div class="container">
-    <h1>Homepage</h1>
-    {% if current_user.is_authenticated %}
-      <h6>You now login as {{current_user.username}}.</h6>
-    {% endif %}
-    <h3>All Users : </h3>
-    {% for user in users %}
-    <li>
-      <a href="{{url_for('users.show',username=user.username)}}">
-        {{user.username}}
-      </a>
-    </li>
-    {% endfor %}
-  </div>
-{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Sorry Internal Server Error~</h1>
+    <a href="{{url_for('home')}}">
+        Back to Home
+    </a>
+</body>
+</html>
