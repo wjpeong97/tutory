@@ -4,8 +4,7 @@ from flask import Flask
 from models.base_model import db
 from flask_login import LoginManager
 from flask_wtf import CSRFProtect
-from models.student import Student
-from models.staff import Staff
+from models.user import User
   
 web_dir = os.path.join(os.path.dirname(
     os.path.abspath(__file__)), 'tutory_web')
@@ -28,19 +27,7 @@ login_manager.login_message_category = "warning"
 # This callback is used to reload the user object from the user ID stored in the session.
 @login_manager.user_loader
 def load_user(user_id):
-    return Student.get_or_none(Student.id == user_id) or Staff.get_or_none(Staff.id == user_id)
-
-# @login_manager.user_loader
-# def load_user(user_id):
-#     student = Student.get_or_none(Student.id == user_id)
-#     staff = Staff.get_or_none(Staff.id == user_id)
-#     if student:
-#         return student
-#     elif staff:
-#         return staff
-#     else:
-#         return None
-
+    return User.get_or_none(User.id == user_id)
 
 @app.before_request
 def before_request():

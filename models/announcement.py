@@ -1,7 +1,7 @@
 import peewee as pw
 from models.base_model import BaseModel
-from models.staff import Staff
+from models.user import User
 
 class Announcement(BaseModel):
-    staff = pw.ForeignKeyField(Staff, backref="announcements")
+    staff = pw.ForeignKeyField(User, backref="announcements")
     post = pw.TextField()

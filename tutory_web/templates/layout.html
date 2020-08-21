@@ -33,18 +33,18 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav ml-auto">
             {%  if current_user.is_authenticated %}
-              <li class="nav-item">
-                <form action="{{url_for('students.destroy')}}" method="POST">
-                  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-                  <input type="submit" id="logout-btn" class="nav-link" value="Logout">
-                </form>
-              </li>
+            <li class="nav-item">
+              <form action="{{url_for('sessions.destroy')}}" method="POST">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                <input type="submit" id="logout-btn" class="nav-link" value="Logout">
+              </form>
+            </li>
             {% else %}
             <li class="nav-item">
-              <a class="nav-link" href="{{url_for('students.new')}}">Student Access</a>
+              <a class="nav-link" href="{{url_for('users.new')}}">Sign Up</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{url_for('staffs.new')}}">Staff Access</a>
+              <a class="nav-link" href="{{url_for('sessions.new')}}">Sign In</a>
             </li>
             {% endif %}
           </ul>

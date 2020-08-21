@@ -1,10 +1,9 @@
 import peewee as pw
 from models.base_model import BaseModel
-from models.student import Student
-from models.staff import Staff
+from models.user import User
 
 class Assignment(BaseModel):
-    student = pw.ForeignKeyField(Student, backref="assignments")
-    staff = pw.ForeignKeyField(Staff, backref="assignments")
+    student = pw.ForeignKeyField(User, backref="assignments")
+    staff = pw.ForeignKeyField(User, backref="assignments")
     homework = pw.TextField(null=True)
     submission = pw.TextField(null=True)
