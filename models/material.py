@@ -5,4 +5,4 @@ from models.exam import Exam
 
 class Material(BaseModel):
     classroom = pw.ForeignKeyField(Classroom, backref="materials")
-    exam = pw.ForeignKeyField(Exam, backref="materials")
+    file_url = pw.TextField(null=True)

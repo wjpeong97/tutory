@@ -35,20 +35,20 @@ Streaming
 
 Materials 
 - List of classes
-    *Include materials such as lecture notes and tutorial either via:
-        a) Links of google docs either via:
-            i) Google DOC API 
-            ii) Storing URL inside database
-                    example:
-                    Google doc links    Subject     Chapter/Topic     Date
-                    URL                 English     Chapter 1         21/8/2020
-        b) Downloadable content that is stored in database
+    *Include materials such as lecture notes and tutorial via storing google doc URL inside database
+        example:
+        Google doc links    Subject     Chapter/Topic     Date
+        URL                 English     Chapter 1         21/8/2020
 - Online Exam either via:
-    a) Google doc submission (excel / word format) and render it into online exam / form format (API requires to be researched)
-    b) Staff upload (excel / word format), student download and submit it once done
+    Google doc or microsoft office 365 (excel / word format) and render it into online exam / form format, student will key in the answers on located placeholder and press submit once done
+    ***Additional consideration:
+    - Timer display (auto submit once the time is up)
+    - Anti-cheating countermeasurement (such as can only be at that specific page [no tab switching], web cam monitoring)
+    - Submission (upload)
+    - Generate result - where to indicate it? at exam page or report card page?
 
 Assignment
-- Students: submit answers with google doc link (similar to materials(part a))
+- Students: submit answers with google doc link
 - Staffs: list of each classes > access to students' links 
 
 Report Card
