@@ -4,4 +4,3 @@ from werkzeug.security import generate_password_hash
 
 class Subject(BaseModel):
     name = pw.CharField(unique=True, null=False)
-    

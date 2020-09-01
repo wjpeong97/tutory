@@ -2,7 +2,7 @@ import peewee as pw
 from models.base_model import BaseModel
 from models.user import User
 
-class Announcement(BaseModel):
+class Activities(BaseModel):
     full_name = pw.CharField(unique=False, null=False)
     identity_card = pw.IntegerField(unique=False, null=False)
     title = pw.CharField(null=False)
