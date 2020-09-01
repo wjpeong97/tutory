@@ -98,15 +98,15 @@ def edit(id):
 def delete():
     params = request.json
     user = User.get_or_none(User.identity_card == get_jwt_identity())
-    delete_grade = Grade.get_by_id(params.get("id"))
+    check_grade = params.get("id")
 
     if user.roles == "staff":
-        if delete_grade.delete_instance():
-            for grades in Grade.select():
+        grade = Grade.get_or_none(Grade.id == check_grade)
+        if grade.delete_instance():
                 response = {
                     "message": "Grade successfully deleted",
                     "status": "Success",
-                    "grade_id_deleted": delete_grade.id
+                    "grade_id_deleted": grade.id
                 }
         else:
             response = {

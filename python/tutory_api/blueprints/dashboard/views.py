@@ -164,17 +164,17 @@ def edit_activity_post():
 def delete_announcement():
     params = request.json
     user = User.get_or_none(User.identity_card == get_jwt_identity())
-    delete_post_announcement = Announcement.get_by_id(params.get("id"))
+    check_announcement = params.get("id")
 
     if user.roles == "staff":
-        if delete_post_announcement.delete_instance():
-            for announcement in Announcement.select():
+        announcement = Announcement.get_or_none(Announcement.id == check_announcement)
+        if announcement.delete_instance():
                 response = {
                     "message": "Announcement successfully deleted",
                     "status": "Success",
-                    "post_id_deleted": delete_post_announcement.id
+                    "post_id_deleted": announcement.id
                 }
-        else:
+        else:   
             response = {
                 "message": "Delete failed, please try again",
                 "status": "Failed"
@@ -189,15 +189,15 @@ def delete_announcement():
 def delete_activity():
     params = request.json
     user = User.get_or_none(User.identity_card == get_jwt_identity())
-    delete_post_activity = Activities.get_by_id(params.get("id"))
+    check_activities = params.get("id")
 
     if user.roles == "staff":
-        if delete_post_activity.delete_instance():
-            for activity in Activities.select():
+        activities = Activities.get_or_none(Activities.id == check_activities)
+        if activities.delete_instance():
                 response = {
                     "message": "Activity successfully deleted",
                     "status": "Success",
-                    "post_id_deleted": delete_post_activity.id
+                    "post_id_deleted": activities.id
                 }
         else:
             response = {
