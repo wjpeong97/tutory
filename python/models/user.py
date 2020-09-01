@@ -35,10 +35,14 @@ class User(UserMixin,BaseModel):
         if existing_user_full_name:
             self.errors.append(f"This name {self.full_name} has already existed!")
 
-        # identity card should be unique
+        # identity card should be longer than 16 characters
         existing_user_identity_card = User.get_or_none(User.identity_card==self.identity_card)
-        if existing_user_identity_card:
-            self.errors.append(f"The IC number {self.identity_card} has already existed!")
+        if self.identity_card:
+            if existing_user_identity_card:
+                self.errors.append(f"The IC number {self.identity_card} has already existed!")
+            # if self.identity_card:
+            #     if len(self.identity_card) != 12:
+            #         self.errors.append("NRIC input has to be 12 figures")
 
         # Password should be longer than 6 characters
         if self.password:
@@ -48,7 +52,7 @@ class User(UserMixin,BaseModel):
             # Password should have at least one special character (REGEX comes in handy here)
             has_lower = re.search(r"[a-z]", self.password)
             has_upper = re.search(r"[A-Z]", self.password)
-            has_special = re.search(r"[\[ \] \* \$ \% \^ \& \# ]", self.password)
+            has_special = re.search(r"[\[ \] \* \$ \% \^ \& \# \a]", self.password)
 
             if has_lower and has_upper and has_special:
                 self.password_hash = generate_password_hash(self.password)
